@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Lavary\Menu\ServiceProvider::class,
+
         Adldap\Laravel\AdldapServiceProvider::class,
         /*
          * Application Service Providers...
@@ -177,6 +177,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        Lavary\Menu\ServiceProvider::class,
 
     ],
 

@@ -17,7 +17,21 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware(['menu']);
-Route::get('/', 'HomeController@index')->name('home')->middleware(['menu']);
+Route::middleware(['web', 'menu'])->group(function() {
 
-Route::get('/profile', 'ProfileController@index')->name('profile')->middleware(['web', 'auth', 'menu']);
+    //Web and menu middleware
+    Route::get('/home', 'HomeController@index')->name('home')->middleware(['menu']);
+    Route::get('/', 'HomeController@index')->name('home')->middleware(['menu']);
+
+    Route::middleware(['auth'])->group(function() {
+        //Auth middleware
+        Route::get('/profile', 'ProfileController@index')->name('profile');
+
+        Route::get('role', 'Auth\\RoleController@index')->name('role.index');
+    });
+
+});
+
+
+
+
