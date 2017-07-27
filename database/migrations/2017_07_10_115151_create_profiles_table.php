@@ -19,7 +19,6 @@ class CreateProfilesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->integer('timezone');
-
             $table->timestamps();
         });
     }

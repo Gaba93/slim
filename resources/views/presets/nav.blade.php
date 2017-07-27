@@ -18,12 +18,17 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                &nbsp;<form class="navbar-form navbar-right">
-                    <button type="button" class="btn btn-info">Create</button>
-                </form>
 
-            </ul>
+                @if (! Auth::guest())
+                <ul class="nav navbar-nav">
+                    @include('vendor.laravel-menu.bootstrap-navbar-items', ['items' => $MyNavBar->roots()])
+                    <form class="navbar-form navbar-right">
+                        <button type="button" class="btn btn-info">Create</button>
+                    </form>
+                </ul>
+
+            @endif
+
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->

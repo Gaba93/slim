@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Adldap\Laravel\Facades\Adldap;
 
 class ProfileController extends Controller
 {
