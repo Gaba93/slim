@@ -27,13 +27,14 @@ Route::middleware(['web', 'menu'])->group(function() {
         //Auth middleware
         Route::get('/profile', 'ProfileController@index')->name('profile');
 
-        /*Route::post('roles/create', 'Auth\\RoleController@store')->name('roles.store');
-
-        Route::get('roles', 'Auth\\RoleController@index')->name('roles.index');
-        Route::get('roles/create', 'Auth\\RoleController@create')->name('roles.create');*/
-
+        //Routes for the Roles
         Route::resource('roles', 'Auth\\RoleController');
 
+        //Routes for the permissions
+        Route::resource('permissions', 'Auth\\PermissionController');
+
+        //Routes for the teams
+        Route::resource('teams', 'Auth\\TeamController');
     });
 
 });

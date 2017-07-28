@@ -2,22 +2,40 @@
 
 namespace App\Http\Controllers\auth;
 
-use App\Http\Requests\Role\RoleCreateRequest;
+use App\Repositories\Eloquent\Criteria\LatestFirst;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Role\RoleCreateRequest;
+use App\Http\Requests\Role\RoleUpdateRequest;
+use App\Repositories\Contracts\RoleRepository;
 
 class RoleController extends Controller
 {
     /**
+     * @var Role
+     */
+    protected $role;
+
+    /**
+     * RoleController constructor.
+     * @param RoleRepository $role
+     */
+    public function __construct(RoleRepository $role)
+    {
+        $this->role = $role;
+    }
+
+    /**
      * Display a listing of the resource.
      *
-     * @param Role $role
      * @return \Illuminate\Http\Response
      */
-    public function index(Role $role)
+    public function index()
     {
-        return view('auth.roles.index', ['roles' => $role->all()]);
+        //dd($this->role->withCriteria(new LatestFirst())->all());
+
+        return view('auth.roles.index', ['roles' => $this->role->all()]);
     }
 
     /**
@@ -36,11 +54,11 @@ class RoleController extends Controller
      * @param RoleCreateRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleCreateRequest $request, Role $role)
+    public function store(RoleCreateRequest $request)
     {
         //$this->authorize('role', $role);
 
-        $role->create([
+        $this->role->create([
             'name' => $request->name,
             'display_name' => $request->display_name,
             'description' => $request->description
@@ -74,23 +92,33 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param RoleUpdateRequest $request
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param Role $role
+     * @internal param int $id
      */
-    public function update(Request $request, $id)
+    public function update(RoleUpdateRequest $request, $id)
     {
-        //
+        $this->role->update($id, [
+            'name' => $request->name,
+            'display_name' => $request->display_name,
+            'description' => $request->description
+        ]);
+
+        return back()->with('message', $request->name . ' role has been successfully updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $this->role->delete($id);
+
+        return back()->with('message', request()->name . ' role has been successfully deleted!');
     }
 }
