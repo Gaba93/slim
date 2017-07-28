@@ -52,16 +52,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Administrator</td>
-                                    <td>This is a description of the specific role</td>
-                                    <td>Istvan Szana</td>
-                                    <td>Developer, Administrator, Super User</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-sm" name="edit">Edit</button>
-                                        <button class="btn btn-danger btn-sm" name="edit">Delete</button>
-                                    </td>
-                                </tr>
+                                @foreach($roles as $role)
+                                    <tr>
+                                        <td>{{ $role->name }}</td>
+                                        <td>{{ $role->description }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-primary btn-sm" name="edit" >Edit</a>
+                                            <a class="btn btn-danger btn-sm" name="edit">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

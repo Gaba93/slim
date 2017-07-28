@@ -18,30 +18,49 @@
                 <a href="#" class="list-group-item">{!! trans('roles.teams') !!}</a>
             </div>
         </div>
-
+        @if(session()->has('message'))
+            <div class="col-md-9">
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            </div>
+        @endif
         <!-- Content -->
         <div class="col-md-9">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="container-fluid">
                         <div class="col-md-5">
-                            <form class="form-horizontal" name="createRoleForm" id="createRoleFormId" method="POST">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input name="name" id="nameId" class="form-control" />
+                            <form action="{{ $role->id ? route('roles.update', $role->id) : route('roles.store') }}" class="form-horizontal" method="POST">
+                                {{ csrf_field() }}
+
+                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label for="name" class="control-label">Name</label>
+                                    <input name="name" id="nameId" class="form-control" value="{{ old('name') ? old('name') : $role->name }}" />
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                                    <label for="description" class="control-label">Description</label>
+                                    <textarea name="description" id="descriptionId" class="form-control" rows="5">{{ old('description') ? old('description') : $role->description }}</textarea>
+                                    @if ($errors->has('description'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea name="description" id="descriptionId" class="form-control" rows="5"></textarea>
-                                </div>
+                                    <button type="submit" name="save" type="button" class="btn btn-primary">Save</button>
 
-                                <div class="form-group">
-                                    <button name="save" type="button" class="btn btn-primary">Save</button>
-                                    <button name="cancel" type="button" class="btn btn-default">Cancel</button>
                                 </div>
 
                             </form>
+
                         </div>
                     </div>
                 </div>

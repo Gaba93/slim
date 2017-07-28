@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\auth;
 
+use App\Http\Requests\Role\RoleCreateRequest;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,11 +12,12 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Role $role
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Role $role)
     {
-        return view('auth.roles.index');
+        return view('auth.roles.index', ['roles' => $role->all()]);
     }
 
     /**
@@ -30,12 +33,20 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param RoleCreateRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleCreateRequest $request, Role $role)
     {
-        //
+        //$this->authorize('role', $role);
+
+        $role->create([
+            'name' => $request->name,
+            'display_name' => $request->display_name,
+            'description' => $request->description
+        ]);
+
+        return back()->with('message', $request->name . ' role has been successfully created!');
     }
 
     /**
@@ -57,7 +68,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('auth.roles.create', ['role' => Role::find($id)]);
     }
 
     /**

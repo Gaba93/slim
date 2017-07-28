@@ -45,7 +45,7 @@
                         </a>
                         <ul class="dropdown-menu" role="adminmenu">
                             <li class="dropdown-header">Administration</li>
-                            <li><a href="roles">Roles</a></li>
+                            <li><a href="{{ route('roles.index') }}">Roles</a></li>
                             <li><a href="permissions">Permissions</a></li>
                             <li><a href="teams">Teams</a></li>
                             <li class="divider"></li>
