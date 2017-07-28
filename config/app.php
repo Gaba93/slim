@@ -167,8 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-
-        Adldap\Laravel\AdldapServiceProvider::class,
+        Lavary\Menu\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -178,7 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Lavary\Menu\ServiceProvider::class,
+
 
     ],
 
@@ -230,7 +229,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Menu'       => Lavary\Menu\Facade::class,
-        'Adldap' => Adldap\Laravel\Facades\Adldap::class,
     ],
 
 ];

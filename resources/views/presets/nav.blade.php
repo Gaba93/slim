@@ -36,10 +36,7 @@
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
-
-                    @include('vendor.laravel-menu.bootstrap-navbar-items', ['items' => $NavbarRight->roots()])
-
-                    <!--<li>
+                    <li>
                         <a href="#"><i class="glyphicon glyphicon-star"></i></a>
                     </li>
                     <li class="dropdown">
@@ -48,11 +45,16 @@
                         </a>
                         <ul class="dropdown-menu" role="adminmenu">
                             <li class="dropdown-header">Administration</li>
-                            <li><a href="#">Roles</a></li>
-                            <li><a href="#">Permissions</a></li>
+                            <li><a href="roles">Roles</a></li>
+                            <li><a href="permissions">Permissions</a></li>
+                            <li><a href="teams">Teams</a></li>
+                            <li class="divider"></li>
+                            <li><a href="users">Users</a></li>
+                            <li class="divider"></li>
+                            <li><a href="system">System</a></li>
                         </ul>
                     </li>
-                    -->
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
@@ -78,7 +80,7 @@
             @if (! Auth::guest())
                 <form class="navbar-form navbar-right">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input class="form-control" placeholder="Search">
                     </div>
                 </form>
             @endif

@@ -27,7 +27,8 @@ Route::middleware(['web', 'menu'])->group(function() {
         //Auth middleware
         Route::get('/profile', 'ProfileController@index')->name('profile');
 
-        Route::get('role', 'Auth\\RoleController@index')->name('role.index');
+        Route::get('roles', 'Auth\\RoleController@index')->name('roles.index');
+        Route::get('roles/create', 'Auth\\RoleController@create')->name('roles.create');
     });
 
 });
